@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:background="@color/color1"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/wode_tie_home_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/wode_tie_home_return"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/ba_home_return"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="我发表的帖子"
+            android:textColor="@color/color2"
+            android:textSize="20dp"
+            />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/wode_tie_select"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:layout_below="@id/wode_tie_home_top">
+
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/wode_tie_zhutie"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="主帖"
+                android:gravity="center"
+                android:layout_centerInParent="true"
+                android:textColor="@color/color2"
+                android:textSize="18dp"
+                />
+
+            <TextView
+                android:id="@+id/wode_tie_zhutie_gang"
+                android:layout_width="40dp"
+                android:layout_height="3dp"
+                android:background="@color/color2"
+                android:layout_alignBottom="@+id/wode_tie_zhutie"
+                android:layout_centerHorizontal="true"
+                />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/wode_tie_huitie"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="回帖"
+                android:gravity="center"
+                android:layout_centerInParent="true"
+                android:textColor="@color/color3"
+                android:textSize="18dp"
+                />
+
+            <TextView
+                android:id="@+id/wode_tie_huitie_gang"
+                android:layout_width="40dp"
+                android:layout_height="3dp"
+                android:background="@color/color2"
+                android:layout_alignBottom="@+id/wode_tie_huitie"
+                android:layout_centerHorizontal="true"
+                android:visibility="gone"
+                />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/wode_tie_home_lv"
+        android:layout_below="@id/wode_tie_select"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </ListView>
+
+</RelativeLayout>

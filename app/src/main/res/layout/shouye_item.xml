@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/color1">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/shouye_head"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:riv_corner_radius="100dp"
+        android:src="@drawable/test"
+        android:layout_margin="10dp"
+        android:scaleType="centerCrop"
+        />
+
+    <TextView
+        android:id="@+id/shouye_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/shouye_head"
+        android:text="发帖名"
+        android:layout_toRightOf="@id/shouye_head"
+        android:textColor="@color/color2"
+        android:textSize="18dp"
+        />
+
+    <TextView
+        android:id="@+id/shouye_settime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/shouye_name"
+        android:text="1小时前"
+        android:layout_toRightOf="@id/shouye_head"
+        android:textColor="@color/color3"
+        android:textSize="12dp"
+        />
+
+    <TextView
+        android:id="@+id/shouye_content"
+        android:layout_margin="10dp"
+        android:layout_below="@id/shouye_head"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="测试文本"
+        android:maxLines="3"
+        android:textColor="@color/color2"
+        android:textSize="20dp"
+        />
+    
+    <LinearLayout
+        android:id="@+id/shouye_imgs"
+        android:layout_below="@+id/shouye_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/shouye_img1"
+            android:src="@drawable/test"
+            android:scaleType="centerCrop"
+            android:layout_margin="10dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp" />
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/shouye_img2"
+            android:src="@drawable/test"
+            android:scaleType="centerCrop"
+            android:layout_margin="10dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"/>
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/shouye_img3"
+            android:src="@drawable/test"
+            android:scaleType="centerCrop"
+            android:layout_margin="10dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/shouye_ba"
+        android:layout_below="@+id/shouye_imgs"
+        android:layout_marginLeft="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="xxx吧"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/color2"
+        android:background="@color/color4"
+        />
+
+    <LinearLayout
+        android:id="@+id/shouye_share"
+        android:layout_below="@id/shouye_ba"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/share"
+            />
+
+        <TextView
+            android:id="@+id/shouye_sharenum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="分享"
+            android:textColor="@color/color2"
+            android:layout_marginLeft="5dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/shouye_answer"
+        android:layout_toRightOf="@id/shouye_share"
+        android:layout_below="@id/shouye_ba"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="15dp">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/answer"
+            />
+
+        <TextView
+            android:id="@+id/shouye_answernum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="评论"
+            android:textColor="@color/color2"
+            android:layout_marginLeft="5dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/shouye_ba"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="15dp">
+
+        <ImageView
+            android:id="@+id/shouye_zan"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/zan"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/shouye_thumbnum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/color2"
+            />
+
+        <ImageView
+            android:id="@+id/shouye_cai"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/cai"
+            android:layout_marginLeft="10dp"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/color0"
+        android:layout_below="@id/shouye_share"
+        android:layout_marginTop="10dp"
+        >
+
+    </TextView>
+</RelativeLayout>

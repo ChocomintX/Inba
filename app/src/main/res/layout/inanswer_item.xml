@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color1"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/infloor_head"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/test"
+            app:riv_corner_radius="100dp" />
+
+        <TextView
+            android:id="@+id/infloor_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/infloor_head"
+            android:layout_toRightOf="@id/infloor_head"
+            android:text="发帖名"
+            android:textColor="@color/color2"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/infloor_settime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/infloor_name"
+            android:layout_toRightOf="@id/infloor_head"
+            android:text="第2楼·1小时前"
+            android:textColor="@color/color3"
+            android:textSize="12dp" />
+
+        <com.example.wx.inba.util.MyTextView
+            android:id="@+id/infloor_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/infloor_head"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_toRightOf="@id/infloor_head"
+            android:text="测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本"
+            android:textColor="@color/color2"
+            android:textSize="20dp" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

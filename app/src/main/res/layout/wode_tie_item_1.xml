@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:background="@color/color1"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/wode_tie_item1_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="17dp"
+        android:textColor="@color/color2"
+        android:text="8月14日"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        />
+
+    <TextView
+        android:id="@+id/wode_tie_item1_ba"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/wode_tie_item1_time"
+        android:textSize="15dp"
+        android:textColor="@color/color3"
+        android:text="搞快点吧"
+        android:layout_marginLeft="20dp"
+        android:layout_alignBottom="@id/wode_tie_item1_time"
+        />
+
+    <TextView
+        android:id="@+id/wode_tie_item1_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/wode_tie_item1_time"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:text="帖子内容"
+        android:textColor="@color/color2"
+        android:textSize="20dp"
+        />
+
+    <LinearLayout
+        android:id="@+id/wode_tie_item1_share"
+        android:layout_below="@id/wode_tie_item1_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/share"
+            />
+
+        <TextView
+            android:id="@+id/wode_tie_item1_sharenum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="分享"
+            android:textColor="@color/color2"
+            android:layout_marginLeft="5dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/wode_tie_item1_answer"
+        android:layout_toRightOf="@id/wode_tie_item1_share"
+        android:layout_below="@id/wode_tie_item1_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="15dp">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/answer"
+            />
+
+        <TextView
+            android:id="@+id/wode_tie_item1_answernum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="评论"
+            android:textColor="@color/color2"
+            android:layout_marginLeft="5dp"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_below="@+id/wode_tie_item1_share"
+        android:layout_marginTop="10dp"
+        android:background="@color/color0"
+        />
+</RelativeLayout>

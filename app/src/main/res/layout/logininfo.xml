@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color1"
+    >
+
+    <TextView
+        android:id="@+id/logininfo_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:text="欢迎登录"
+        android:textColor="@color/color2"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="100dp"
+        />
+
+    <EditText
+        android:layout_below="@+id/logininfo_title"
+        android:id="@+id/logininfo_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:hint="请输入用户名"
+        android:background="@drawable/logininfo_edit__shape"
+        android:padding="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textColorHint="@color/color3"
+        android:layout_marginTop="50dp"
+        android:textColor="@color/color2"
+        />
+
+    <EditText
+        android:layout_below="@+id/logininfo_username"
+        android:id="@+id/logininfo_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:hint="请输入密码"
+        android:background="@drawable/logininfo_edit__shape"
+        android:padding="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textColorHint="@color/color3"
+        android:layout_marginTop="10dp"
+        android:inputType="textPassword"
+        android:textColor="@color/color2"
+        />
+
+    <EditText
+        android:layout_below="@+id/logininfo_password"
+        android:id="@+id/logininfo_repass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:hint="再次输入密码"
+        android:background="@drawable/logininfo_edit__shape"
+        android:padding="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textColorHint="@color/color3"
+        android:layout_marginTop="10dp"
+        android:inputType="textPassword"
+        android:textColor="@color/color2"
+        />
+
+    <Button
+        android:id="@+id/logininfo_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/loginbtn_shape"
+        android:textColor="#ffffff"
+        android:text="登录"
+        android:layout_below="@+id/logininfo_repass"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        />
+
+    <TextView
+        android:id="@+id/logininfo_forget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/color2"
+        android:text="忘记密码"
+        android:layout_below="@+id/logininfo_login"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="20dp"
+        />
+
+     <LinearLayout
+         android:layout_alignParentBottom="true"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_centerHorizontal="true"
+         android:layout_marginBottom="50dp"
+         >
+
+         <TextView
+             android:id="@+id/logininfo_hint"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:textColor="@color/color2"
+             android:text="没有账号?点击"
+             />
+
+         <TextView
+             android:id="@+id/logininfo_register"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:textColor="@color/logincolor"
+             android:text="注册"
+             />
+     </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:background="@color/color1"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/fans_home_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/fans_home_return"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/ba_home_return"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="关注我的人"
+            android:textColor="@color/color2"
+            android:textSize="20dp"
+            />
+
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/fans_home_lv"
+        android:layout_below="@id/fans_home_top"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </ListView>
+
+</RelativeLayout>

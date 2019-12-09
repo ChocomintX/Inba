@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:background="@color/color1"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/shouye_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="5dp"
+        android:text="首页"
+        android:textColor="@color/color2"
+        android:textSize="25dp"
+        android:textStyle="bold" />
+
+
+    <ListView
+        android:id="@+id/lv_shouye"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/shouye_title"
+        android:layout_marginTop="10dp"
+        android:descendantFocusability="beforeDescendants"
+        android:divider="@null">
+
+    </ListView>
+</RelativeLayout>

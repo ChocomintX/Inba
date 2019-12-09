@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:clickable="true"
+    android:focusableInTouchMode="true"
+    android:background="@color/color1">
+
+    <RelativeLayout
+        android:id="@+id/tie_home_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/tie_home_return"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/ba_home_return"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp"
+            />
+
+        <ImageView
+            android:id="@+id/tie_home_gengduo"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/ba_home_gengduo"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"/>
+
+        <ImageView
+            android:id="@+id/tie_home_zhikanlouzhu"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/zhikanlouzhu_no"
+            android:layout_toLeftOf="@+id/tie_home_gengduo"
+            android:layout_alignTop="@+id/tie_home_gengduo"
+            android:layout_marginRight="20dp"
+            />
+
+        <ImageView
+            android:id="@+id/tie_home_collection"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/collection"
+            android:layout_toLeftOf="@+id/tie_home_zhikanlouzhu"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/tie_home_bottom"
+        android:layout_below="@+id/tie_home_top"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/tie_home_head"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:riv_corner_radius="20dp"
+        android:src="@drawable/test"
+        android:layout_margin="10dp"
+        android:scaleType="centerCrop"
+        />
+
+    <TextView
+        android:id="@+id/tie_home_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/tie_home_head"
+        android:text="发帖名"
+        android:layout_toRightOf="@id/tie_home_head"
+        android:textColor="@color/color2"
+        android:textSize="18dp"
+        />
+
+     <ImageView
+         android:id="@+id/tie_home_identity"
+         android:visibility="gone"
+         android:layout_width="15dp"
+         android:layout_height="15dp"
+         android:layout_toRightOf="@id/tie_home_name"
+         android:layout_alignBottom="@id/tie_home_name"
+         android:layout_marginBottom="5dp"
+         android:layout_marginLeft="10dp"
+         android:src="@drawable/admin"
+         />
+
+    <TextView
+        android:id="@+id/tie_home_settime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tie_home_name"
+        android:text="1小时前"
+        android:layout_toRightOf="@id/tie_home_head"
+        android:textColor="@color/color3"
+        android:textSize="12dp"
+        />
+
+    <TextView
+        android:id="@+id/tie_home_content"
+        android:layout_margin="10dp"
+        android:layout_below="@id/tie_home_head"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="测试文本"
+        android:maxLines="3"
+        android:textColor="@color/color2"
+        android:textSize="20dp"
+        />
+
+    <LinearLayout
+        android:id="@+id/tie_home_imgs"
+        android:layout_below="@+id/tie_home_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:orientation="vertical">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/tie_home_img1"
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            android:src="@drawable/test"
+            android:layout_marginRight="20dp"
+            app:riv_corner_radius="10dp"
+            android:layout_marginBottom="10dp"
+            />
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/tie_home_img2"
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            android:src="@drawable/test"
+            android:layout_marginRight="20dp"
+            app:riv_corner_radius="10dp"
+            android:layout_marginBottom="10dp"
+            />
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/tie_home_img3"
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            android:src="@drawable/test"
+            android:layout_marginRight="20dp"
+            app:riv_corner_radius="10dp"
+            />
+
+        <VideoView
+            android:id="@+id/tie_home_video"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tie_home_ba"
+        android:layout_below="@+id/tie_home_imgs"
+        android:layout_marginLeft="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="xxx吧"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/color2"
+        android:background="@color/color4"
+        />
+
+    <LinearLayout
+        android:id="@+id/tie_home_share"
+        android:layout_below="@id/tie_home_ba"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/share"
+            />
+
+        <TextView
+            android:id="@+id/tie_home_sharenum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="分享"
+            android:textColor="@color/color2"
+            android:layout_marginLeft="5dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/tie_home_answer"
+        android:layout_toRightOf="@id/tie_home_share"
+        android:layout_below="@id/tie_home_ba"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="15dp">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/answer"
+            />
+
+        <TextView
+            android:id="@+id/tie_home_answernum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="评论"
+            android:textColor="@color/color2"
+            android:layout_marginLeft="5dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/tie_home_ba"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="15dp">
+
+        <ImageView
+            android:id="@+id/tie_home_zan"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/zan"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/tie_home_thumbnum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/color2"
+            />
+
+        <ImageView
+            android:id="@+id/tie_home_cai"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/cai"
+            android:layout_marginLeft="10dp"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tie_home_bottom1"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/color0"
+        android:layout_below="@id/tie_home_share"
+        android:layout_marginTop="10dp"
+        >
+    </TextView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tie_home_bottom1">
+
+                <com.example.wx.inba.util.HeightListView
+                    android:id="@+id/answer_listview"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:divider="@null">
+                </com.example.wx.inba.util.HeightListView>
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/tie_home_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/color1"
+        android:paddingTop="10dp"
+        >
+
+        <EditText
+            android:id="@+id/tie_home_messagecontent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/answer_photo"
+            android:background="@drawable/answeredit_shape"
+            android:textColorHint="@color/color3"
+            android:textColor="@color/color2"
+            android:hint="写点什么吧"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            />
+        
+        <ImageView
+            android:id="@+id/answer_photo"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:src="@drawable/photo"
+            android:layout_toLeftOf="@id/tie_home_sendmessage"
+            android:layout_marginRight="10dp"
+            android:layout_alignBottom="@+id/answer_content"
+            />
+        
+        <Button
+            android:id="@+id/tie_home_sendmessage"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:background="@drawable/answerbtn_shape"
+            android:textColor="#ffffff"
+            android:layout_alignParentRight="true"
+            android:layout_alignBottom="@+id/answer_content"
+            android:layout_marginRight="10dp"
+            android:text="发表"/>
+
+    </RelativeLayout>
+</RelativeLayout>

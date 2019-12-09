@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color1"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/focus_home_head"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="20dp"
+        android:scaleType="centerCrop"
+        app:riv_corner_radius="40dp"
+        android:src="@drawable/test"
+        />
+
+    <TextView
+        android:id="@+id/focus_home_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/focus_home_head"
+        android:layout_centerInParent="true"
+        android:textColor="@color/color2"
+        android:text="用户名"
+        android:textSize="20dp"
+        />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:background="@color/color2">
+
+        <TextView
+            android:id="@+id/focus_home_focusbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="已关注"
+            android:background="@color/color1"
+            android:textColor="@color/color2"
+            android:layout_margin="1dp"
+            android:padding="5dp"
+            />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color0"
+        android:layout_below="@+id/focus_home_head"/>
+</RelativeLayout>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/color1">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/answer_head"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:riv_corner_radius="100dp"
+        android:src="@drawable/test"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="10dp"
+        android:scaleType="centerCrop"
+        />
+
+    <TextView
+        android:id="@+id/answer_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/answer_head"
+        android:text="发帖名"
+        android:layout_toRightOf="@id/answer_head"
+        android:textColor="@color/color2"
+        android:textSize="18dp"
+        />
+
+    <TextView
+        android:id="@+id/answer_settime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/answer_name"
+        android:text="第2楼·1小时前"
+        android:layout_toRightOf="@id/answer_head"
+        android:textColor="@color/color3"
+        android:textSize="12dp"
+        />
+
+    <TextView
+        android:id="@+id/answer_content"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_toRightOf="@id/answer_head"
+        android:layout_below="@id/answer_head"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="测试文本"
+        android:textColor="@color/color2"
+        android:textSize="20dp"
+        />
+
+    <LinearLayout
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_alignTop="@+id/answer_head">
+
+        <ImageView
+            android:id="@+id/answer_zan"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/zan"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/answer_thumbnum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/color2"
+            />
+
+        <ImageView
+            android:id="@+id/answer_cai"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/cai"
+            android:layout_marginLeft="10dp"
+            />
+
+    </LinearLayout>
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/answer_img"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/answer_content"
+        android:src="@drawable/test"
+        android:layout_toRightOf="@+id/answer_head"
+        android:layout_marginRight="20dp"
+        app:riv_corner_radius="10dp"
+        />
+
+    <TextView
+        android:id="@+id/answer_inanswer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="回复"
+        android:textColor="@color/color3"
+        android:layout_below="@id/answer_img"
+        android:layout_toRightOf="@+id/answer_head"
+        />
+
+</RelativeLayout>

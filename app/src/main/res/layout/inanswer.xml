@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/color1">
+
+    <ImageView
+        android:id="@+id/inanswer_close"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/close"
+        android:layout_margin="10dp"
+        />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/inanswer_bottom"
+        android:layout_below="@id/inanswer_close"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/inanswer_head"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:riv_corner_radius="100dp"
+                android:src="@drawable/test"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:scaleType="centerCrop"
+                />
+
+            <TextView
+                android:id="@+id/inanswer_name"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignTop="@+id/inanswer_head"
+                android:text="发帖名"
+                android:layout_toRightOf="@id/inanswer_head"
+                android:textColor="@color/color2"
+                android:textSize="18dp"
+                />
+
+            <TextView
+                android:id="@+id/inanswer_settime"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_below="@id/inanswer_name"
+                android:text="第2楼·1小时前"
+                android:layout_toRightOf="@id/inanswer_head"
+                android:textColor="@color/color3"
+                android:textSize="12dp"
+                />
+
+            <TextView
+                android:id="@+id/inanswer_content"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_toRightOf="@id/inanswer_head"
+                android:layout_below="@id/inanswer_head"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="测试文本"
+                android:textColor="@color/color2"
+                android:textSize="20dp"
+                />
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/inanswer_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/inanswer_content"
+                android:src="@drawable/test"
+                android:layout_toRightOf="@+id/inanswer_head"
+                android:layout_marginRight="20dp"
+                app:riv_corner_radius="10dp"
+                >
+
+            </com.makeramen.roundedimageview.RoundedImageView>
+
+            <LinearLayout
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_alignTop="@+id/inanswer_head">
+
+                <ImageView
+                    android:id="@+id/inanswer_zan"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/zan"
+                    android:layout_marginRight="10dp"
+                    />
+
+                <TextView
+                    android:id="@+id/inanswer_thumbnum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="@color/color2"
+                    />
+
+                <ImageView
+                    android:id="@+id/inanswer_cai"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/cai"
+                    android:layout_marginLeft="10dp"
+                    />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/inanswer_bottom1"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/color0"
+                android:layout_below="@id/inanswer_img"
+                android:layout_marginTop="10dp"
+                >
+            </TextView>
+
+            <TextView
+                android:id="@+id/inanswer_num"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:text="4条回复"
+                android:layout_below="@+id/inanswer_bottom1"
+                android:textColor="@color/color2"
+                />
+
+            <com.example.wx.inba.util.HeightListView
+                android:id="@+id/inanswer_listview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/inanswer_num"
+                android:divider="@null"
+                >
+
+            </com.example.wx.inba.util.HeightListView>
+
+        </RelativeLayout>
+
+</ScrollView>
+
+
+    <RelativeLayout
+        android:id="@+id/inanswer_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/color1"
+        android:paddingTop="10dp"
+        >
+
+        <EditText
+            android:id="@+id/inanswer_incontent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/inanswer_send"
+            android:background="@drawable/answeredit_shape"
+            android:textColorHint="@color/color3"
+            android:textColor="@color/color2"
+            android:hint="写点什么吧"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            />
+
+
+        <Button
+            android:id="@+id/inanswer_send"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:background="@drawable/answerbtn_shape"
+            android:textColor="#ffffff"
+            android:layout_alignParentRight="true"
+            android:layout_alignBottom="@+id/inanswer_incontent"
+            android:layout_marginRight="10dp"
+            android:text="发表"/>
+
+    </RelativeLayout>
+</RelativeLayout>

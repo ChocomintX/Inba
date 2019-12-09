@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/color0"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/userinfo_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/userinfo_return"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/ba_home_return"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp"
+            />
+
+        <TextView
+            android:id="@+id/userinfo_titlename"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="我的主页"
+            android:textColor="@color/color2"
+            android:textSize="20dp"
+            />
+
+        <TextView
+            android:id="@+id/userinfo_fengjin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="封禁"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/colorAccent"
+            android:textSize="20dp"
+            android:visibility="gone"
+            />
+
+
+    </RelativeLayout>
+
+
+    <ScrollView
+        android:layout_below="@+id/userinfo_top"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+    <RelativeLayout
+        android:id="@+id/userinfo_info"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@color/color1"
+        android:layout_alignTop="@+id/userinfo_head"
+        android:layout_marginTop="30dp"
+        >
+
+        <TextView
+            android:id="@+id/userinfo_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kuma"
+            android:textColor="@color/color2"
+            android:textSize="25dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginLeft="20dp"
+            />
+
+        <TextView
+            android:id="@+id/userinfo_fans"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="155 粉丝"
+            android:textColor="@color/color2"
+            android:textSize="15dp"
+            android:layout_below="@+id/userinfo_name"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/userinfo_focus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="43 关注"
+            android:textColor="@color/color2"
+            android:textSize="15dp"
+            android:layout_toRightOf="@id/userinfo_fans"
+            android:layout_alignBottom="@+id/userinfo_fans"
+            android:layout_marginLeft="20dp">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/userinfo_ba"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="59 吧"
+            android:textColor="@color/color2"
+            android:textSize="15dp"
+            android:layout_toRightOf="@+id/userinfo_focus"
+            android:layout_alignBottom="@+id/userinfo_fans"
+            android:layout_marginLeft="20dp">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/userinfo_jianjie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="简介:这个人很懒，什么都没有留下"
+            android:textColor="@color/color2"
+            android:textSize="15dp"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/userinfo_fans"
+            android:layout_marginLeft="20dp">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/userinfo_btn"
+            android:layout_width="70dp"
+            android:layout_height="35dp"
+            android:background="@drawable/loginbtn_shape"
+            android:layout_alignBottom="@+id/userinfo_name"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:text="编辑资料"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            />
+
+    </RelativeLayout>
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/userinfo_head"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/test"
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="20dp"
+        app:riv_corner_radius="500dp"
+        />
+
+        <ListView
+            android:id="@+id/userinfo_lv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/userinfo_info"
+            android:layout_marginTop="10dp"
+            android:divider="@null"
+            >
+
+        </ListView>
+
+
+
+
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

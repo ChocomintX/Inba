@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:background="@color/color1"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/message_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="5dp"
+        android:text="消息"
+        android:textColor="@color/color2"
+        android:textSize="25dp"
+        android:textStyle="bold" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/message_title">
+
+        <com.example.wx.inba.util.MyListView
+            android:id="@+id/lv_message"
+            android:layout_below="@+id/message_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color0"
+            >
+
+        </com.example.wx.inba.util.MyListView>
+    </ScrollView>
+
+
+</RelativeLayout>

@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/color0"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/ba_home_toptop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#587177"
+        >
+
+        <ImageView
+            android:id="@+id/ba_home_return"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/ba_home_return"
+            />
+
+        <ImageView
+            android:id="@+id/ba_home_tixing"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignTop="@+id/ba_home_return"
+            android:src="@drawable/ba_home_tixing"
+            android:layout_toLeftOf="@+id/ba_home_gengduo"
+            android:layout_marginRight="20dp"
+            />
+
+        <ImageView
+            android:id="@+id/ba_home_gengduo"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignTop="@+id/ba_home_return"
+            android:src="@drawable/ba_home_gengduo"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            />
+
+    </RelativeLayout>
+
+
+
+    <ScrollView
+        android:id="@+id/ba_home_scroll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ba_home_toptop">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="155dp"
+                android:background="#587177"
+                />
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/ba_home_head"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                app:riv_corner_radius="20dp"
+                android:src="@drawable/test"
+
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="10dp"
+                android:scaleType="centerCrop"
+                />
+
+            <TextView
+                android:id="@+id/ba_home_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="test吧"
+                android:textColor="@color/color5"
+                android:layout_alignTop="@id/ba_home_head"
+                android:layout_toRightOf="@id/ba_home_head"
+                android:textSize="20dp"
+                />
+
+            <TextView
+                android:id="@+id/ba_home_level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="LV1 初级用户"
+                android:textColor="@color/color5"
+                android:layout_below="@+id/ba_home_name"
+                android:layout_toRightOf="@id/ba_home_head"
+                android:textSize="15dp"
+                />
+
+            <ProgressBar
+                android:id="@+id/ba_home_exp"
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_below="@id/ba_home_level"
+                android:layout_toRightOf="@id/ba_home_head"
+                android:progress="10"
+                />
+
+            <Button
+                android:id="@+id/ba_home_sign"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="签到"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/ba_home_topshape"
+                android:textColor="@color/color2"
+                android:layout_alignBottom="@id/ba_home_level"
+
+                />
+
+            <LinearLayout
+                android:id="@+id/ba_home_topll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ba_home_topshape"
+                android:layout_below="@id/ba_home_head"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="置顶"
+                    android:textColor="@color/topcolor"
+                    android:layout_margin="20dp"
+                    />
+
+                <TextView
+                    android:id="@+id/ba_home_toptitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="置顶帖子标题"
+                    android:textColor="@color/color2"
+                    android:layout_margin="20dp"
+                    />
+            </LinearLayout>
+
+    <ListView
+        android:id="@+id/ba_home_listview"
+        android:layout_below="@+id/ba_home_topll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:divider="@null">
+
+
+    </ListView>
+    </RelativeLayout>
+    </ScrollView>
+
+
+    <LinearLayout
+        android:id="@+id/ba_home_refresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="150dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/floatbtn_shape"
+        android:padding="10dp"
+        android:clickable="true"
+        >
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/refresh"
+            android:scaleType="centerCrop"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ba_home_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="80dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/floatbtn_shape"
+        android:padding="10dp"
+        android:clickable="true"
+        >
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/add"
+            android:scaleType="centerCrop"
+            />
+
+    </LinearLayout>
+
+</RelativeLayout>
