@@ -15,4 +15,6 @@ public class KeyBoardUtil {
         // 隐藏软键盘
         imm.hideSoftInputFromWindow(context.getWindow().getDecorView().getWindowToken(), 0);
     }
+
+
 }

@@ -1,5 +1,7 @@
 package com.example.wx.inba.model;
 
+import android.support.v7.widget.RecyclerView;
+
 public class Report {
     private String type;
     private int tieid;

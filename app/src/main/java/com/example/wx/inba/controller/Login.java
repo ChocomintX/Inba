@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,11 +15,16 @@ import com.example.wx.inba.R;
 import com.example.wx.inba.dao.Link;
 import com.example.wx.inba.dao.RequestUtils;
 import com.example.wx.inba.model.UserInfo;
+import com.example.wx.inba.util.ForgetPopup;
 import com.example.wx.inba.util.JsonUtil;
 import com.example.wx.inba.util.KeyBoardUtil;
 import com.example.wx.inba.util.StatusBarUtil;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.lxj.xpopup.XPopup;
+import com.lxj.xpopup.enums.PopupAnimation;
+import com.lxj.xpopup.interfaces.OnInputConfirmListener;
+import com.lxj.xpopup.interfaces.OnSelectListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +65,16 @@ public class Login extends Activity implements View.OnClickListener {
                         setResult(1);
                         finish();
                     }
-
+                    break;
+                case 1:
+                    logininfo_repass.setVisibility(View.GONE);
+                    logininfo_register.setText("注册");
+                    logininfo_hint.setText("没有账号?");
+                    logininfo_title.setText("登录到INBA");
+                    logininfo_login.setText("登录");
+                    flag=0;
+                    KeyBoardUtil.hideKeyboard(Login.this);
+                    Toast.makeText(Login.this,state,Toast.LENGTH_SHORT).show();
                     break;
             }
         }
@@ -127,7 +142,71 @@ public class Login extends Activity implements View.OnClickListener {
     }
 
     public void register(){
+        KeyBoardUtil.hideKeyboard(Login.this);
+        final String s1=logininfo_username.getText().toString();
+        final String s2=logininfo_password.getText().toString();
+        String s3=logininfo_repass.getText().toString();
+        if(s1.equals("")){
+            Toast.makeText(Login.this,"账号为空！",Toast.LENGTH_SHORT).show();
+            return;
+        }else if(s2.equals("")||s3.equals("")){
+            Toast.makeText(Login.this,"密码为空！",Toast.LENGTH_SHORT).show();
+            return;
+        }else if(!s2.equals(s3)){
+            Toast.makeText(Login.this,"两次密码填写不一致",Toast.LENGTH_SHORT).show();
+            return;
+        }
 
+        new XPopup.Builder(this)
+                //.maxWidth(600)
+                .asCenterList("选择你的安全问题", new String[]{"您父亲的生日是？", "您母亲的生日是？",
+                                "您的生日是？", "您就读的初中是？","您就读的高中是？","您就读的大学是？","您的第一只宠物名字是？"},
+                        new OnSelectListener() {
+                            @Override
+                            public void onSelect(int position, final String q) {
+                                new XPopup.Builder(Login.this).asInputConfirm(q, "请输入答案。",
+                                        new OnInputConfirmListener() {
+                                            @Override
+                                            public void onConfirm(String a) {
+                                                params=new RequestParams();
+                                                params.put("username",s1);
+                                                params.put("password",s2);
+                                                params.put("question",q);
+                                                params.put("answer",a);
+                                                RequestUtils.clientPost("register", params, new AsyncHttpResponseHandler() {
+                                                    @Override
+                                                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                                                        state=new String(responseBody);
+                                                        handler.sendEmptyMessage(1);
+                                                    }
+
+                                                    @Override
+                                                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                                                        handler.sendEmptyMessage(-1);
+                                                    }
+                                                });
+                                            }
+                                        })
+                                        .show();
+                            }
+                        })
+                .show();
+    }
+
+    public void forget(){
+        new XPopup.Builder(this)
+                .popupAnimation(PopupAnimation.TranslateFromRight)
+                .asCustom(new ForgetPopup(this,getStateBar3(),this))
+                .show();
+    }
+
+    private int getStateBar3(){
+        int result = 0;
+        int resourceId = this.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = this.getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
     }
 
     @Override
@@ -156,6 +235,9 @@ public class Login extends Activity implements View.OnClickListener {
                 }else{
                     register();
                 }
+                break;
+            case R.id.logininfo_forget:
+                forget();
                 break;
         }
     }

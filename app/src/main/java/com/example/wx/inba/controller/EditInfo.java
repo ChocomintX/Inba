@@ -2,6 +2,8 @@ package com.example.wx.inba.controller;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.media.Image;
 import android.net.Uri;
@@ -22,6 +24,7 @@ import com.example.wx.inba.dao.RequestUtils;
 import com.example.wx.inba.model.UserInfo;
 import com.example.wx.inba.util.JsonUtil;
 import com.example.wx.inba.util.StatusBarUtil;
+import com.example.wx.inba.util.Utils;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -35,6 +38,7 @@ public class EditInfo extends Activity {
     private RoundedImageView head;
     private UserInfo userInfo;
     private boolean flag=false;
+    private String headpath;
 
     private Handler handler=new Handler(){
         @Override
@@ -45,6 +49,7 @@ public class EditInfo extends Activity {
                     break;
                 case 1:
                     Toast.makeText(EditInfo.this,"修改成功!",Toast.LENGTH_SHORT).show();
+                    EditInfo.this.setResult(0);
                     finish();
                     break;
             }
@@ -124,6 +129,10 @@ public class EditInfo extends Activity {
         userInfo.setName(name.getText().toString());
         userInfo.setSex(sex.getText().toString());
         userInfo.setJianjie(jieshao.getText().toString());
+        if(headpath!=null){
+            String newhead = Utils.BitmapToString(BitmapFactory.decodeFile(headpath));
+            params.put("head",newhead);
+        }
 
 
         params.put("userinfo", JsonUtil.toUserInfoJson(userInfo));
@@ -146,6 +155,15 @@ public class EditInfo extends Activity {
         switch (requestCode) {
             case 1:
                 if (data != null) {
+                    Uri selectedImage = data.getData();
+                    String[] filePathColumn = { MediaStore.Images.Media.DATA };
+
+                    // 获取游标
+                    Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+                    cursor.moveToFirst();
+
+                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                    headpath = cursor.getString(columnIndex);
                     // 得到图片的全路径
                     Uri uri = data.getData();
                     head.setImageURI(uri);

@@ -1,5 +1,7 @@
 package com.example.wx.inba.model;
 
+import com.example.wx.inba.dao.Link;
+
 import java.io.Serializable;
 
 public class UserInfo implements Serializable {
@@ -41,7 +43,9 @@ public class UserInfo implements Serializable {
     }
 
     public String getHead() {
-        return head;
+        if(head.substring(0,4).equals("http"))
+            return head;
+        return Link.url+head;
     }
 
     public void setHead(String head) {

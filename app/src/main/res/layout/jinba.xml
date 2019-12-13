@@ -17,15 +17,15 @@
         android:textSize="25dp"
         android:textStyle="bold" />
 
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/jinba_title"
-        android:layout_alignParentRight="true"
-        android:layout_margin="5dp"
-        >
+    <!--<Spinner-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignTop="@+id/jinba_title"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_margin="5dp"-->
+        <!--&gt;-->
 
-    </Spinner>
+    <!--</Spinner>-->
 
     <ScrollView
         android:layout_width="match_parent"

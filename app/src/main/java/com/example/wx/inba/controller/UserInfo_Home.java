@@ -128,6 +128,13 @@ public class UserInfo_Home extends Activity implements ShouyeAdapter.CallBack, V
         initView();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode==0){
+            getinfo();
+        }
+    }
+
     public void initView(){
         StatusBarUtil.setRootViewFitsSystemWindows(this,true);
         //设置状态栏透明
@@ -237,7 +244,7 @@ public class UserInfo_Home extends Activity implements ShouyeAdapter.CallBack, V
                     Toast.makeText(UserInfo_Home.this,"编辑资料",Toast.LENGTH_SHORT).show();
                     Intent intent=new Intent(UserInfo_Home.this,EditInfo.class);
                     intent.putExtra("userinfo",(Serializable)userinfo);
-                    startActivity(intent);
+                    startActivityForResult(intent,0);
                     return;
                 }
                 else if(edit.getText().toString().equals("关注")){

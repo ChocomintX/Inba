@@ -73,6 +73,7 @@ public class InAnswer_Home extends Activity implements View.OnClickListener,InAn
                     inAnswertoUsers.clear();
                     inanswer_incontent.setText("");
                     getInanswer();
+                    Toast.makeText(InAnswer_Home.this,"回复成功！",Toast.LENGTH_SHORT).show();
                     break;
             }
         }
@@ -179,6 +180,7 @@ public class InAnswer_Home extends Activity implements View.OnClickListener,InAn
         switch (v.getId()){
             case R.id.infloor_content:
                 answertoid=Integer.parseInt(v.getTag()+"");
+                inanswer_incontent.setHint("回复用户"+v.getTag()+"：");
                 break;
             case R.id.infloor_head:
                 Intent intent=new Intent(InAnswer_Home.this,UserInfo_Home.class);

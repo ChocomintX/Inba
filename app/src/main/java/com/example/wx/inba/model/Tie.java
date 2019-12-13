@@ -1,5 +1,7 @@
 package com.example.wx.inba.model;
 
+import com.example.wx.inba.dao.Link;
+
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -113,7 +115,12 @@ public class Tie implements Serializable, Comparable<Tie>{
     }
 
     public String getImg1() {
-        return img1;
+        if(img1==null||img1.equals(""))
+            return img1;
+
+        if(img1.substring(0,4).equals("http"))
+            return img1;
+        return Link.url+img1;
     }
 
     public void setImg1(String img1) {
@@ -121,7 +128,12 @@ public class Tie implements Serializable, Comparable<Tie>{
     }
 
     public String getImg2() {
-        return img2;
+        if(img2==null||img2.equals(""))
+            return img2;
+
+        if(img2.substring(0,4).equals("http"))
+            return img2;
+        return Link.url+img2;
     }
 
     public void setImg2(String img2) {
@@ -129,7 +141,12 @@ public class Tie implements Serializable, Comparable<Tie>{
     }
 
     public String getImg3() {
-        return img3;
+        if(img3==null||img3.equals(""))
+            return img3;
+
+        if(img3.substring(0,4).equals("http"))
+            return img3;
+        return Link.url+img3;
     }
 
     public void setImg3(String img3) {

@@ -32,22 +32,32 @@ import com.example.wx.inba.dao.RequestUtils;
 import com.example.wx.inba.model.Answer;
 import com.example.wx.inba.model.Ba;
 import com.example.wx.inba.model.InAnswer;
+import com.example.wx.inba.model.Report;
 import com.example.wx.inba.model.Tie;
 import com.example.wx.inba.model.UserInfo;
+import com.example.wx.inba.util.ChangePassPopup;
+import com.example.wx.inba.util.CustomFullScreenPopup;
 import com.example.wx.inba.util.JinBaAdapter;
 import com.example.wx.inba.util.JsonUtil;
 import com.example.wx.inba.util.ListViewUtil;
 import com.example.wx.inba.util.MsgAdapter;
 import com.example.wx.inba.util.MyListView;
 import com.example.wx.inba.util.NoScrollViewPager;
+import com.example.wx.inba.util.SearchPopup;
 import com.example.wx.inba.util.ShouyeAdapter;
 import com.example.wx.inba.util.StatusBarUtil;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.lxj.xpopup.XPopup;
+import com.lxj.xpopup.enums.PopupAnimation;
+import com.lxj.xpopup.interfaces.OnConfirmListener;
+import com.lxj.xpopup.interfaces.OnInputConfirmListener;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.zip.Inflater;
 
@@ -75,16 +85,31 @@ public class MainActivity extends Activity implements ShouyeAdapter.CallBack {
     private RelativeLayout wode_collection,wode_message,wode_safety,wode_report;
     private RelativeLayout wode_user;
     private String[] msgstr;
-    List<InAnswer> msg_inanswers;
-    List<UserInfo> msg_userInfos;
-    List<Ba> msg_bas;
-    List<Answer> msg_answers;
-    List<Tie> msg_ties;
+    private List<InAnswer> msg_inanswers;
+    private List<UserInfo> msg_userInfos;
+    private List<Ba> msg_bas;
+    private List<Answer> msg_answers;
+    private List<Tie> msg_ties;
+    String refreshStr="";
+    private TextView jinba_search;
 
     private Handler handler=new Handler(){
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what){
+                case -2:
+                    Link.userInfo=JsonUtil.getUserInfoJson(refreshStr.split("#flag#")[0]);
+                    if(refreshStr.split("#flag#")[1].equals("no"))
+                        Link.fengjin=false;
+                    else
+                        Link.fengjin=true;
+                    wode_name.setText(Link.userInfo.getName());
+                    if(Link.userInfo.getHead()!=""&&Link.userInfo.getHead()!=null){
+                        Glide.with(MainActivity.this)
+                                .load(Link.userInfo.getHead())
+                                .into(wode_head);
+                    }
+                    break;
                 case -1:
                     Toast.makeText(MainActivity.this,"连接服务器失败！",Toast.LENGTH_SHORT).show();
                     break;
@@ -235,7 +260,6 @@ public class MainActivity extends Activity implements ShouyeAdapter.CallBack {
             }
         });
         initlogin();
-
     }
 
     public void initlogin(){
@@ -252,7 +276,7 @@ public class MainActivity extends Activity implements ShouyeAdapter.CallBack {
 
     public void initjinba(){
         RequestParams params = new RequestParams();
-        params.put("id", "2");
+        params.put("id", Link.user.getId());
         RequestUtils.clientPost("getfocusba", params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
@@ -275,6 +299,19 @@ public class MainActivity extends Activity implements ShouyeAdapter.CallBack {
                 intent.putExtra("ba",(Serializable)balist.get(i));
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_out,R.anim.fade_in);
+            }
+        });
+
+        jinba_search=(TextView)findViewById(R.id.jinba_search);
+        jinba_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new XPopup.Builder(MainActivity.this)
+                        .popupAnimation(PopupAnimation.TranslateAlphaFromTop)
+                        .asCustom(new SearchPopup(MainActivity.this,getStateBar3(),balist))
+                        .show();
+//                Intent intent=new Intent(MainActivity.this,Search.class);
+//                startActivity(intent);
             }
         });
     }
@@ -339,9 +376,17 @@ public class MainActivity extends Activity implements ShouyeAdapter.CallBack {
         wode_exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Link.user=null;
-                Link.userInfo=null;
-                viewPager.setCurrentItem(4);
+                new XPopup.Builder(MainActivity.this).asConfirm("提示", "确定要退出吗？",
+                        new OnConfirmListener() {
+                            @Override
+                            public void onConfirm() {
+                                Link.user=null;
+                                Link.userInfo=null;
+                                viewPager.setCurrentItem(4);
+                                handler.removeCallbacks(refreshRunnable);
+                            }
+                        })
+                        .show();
             }
         });
         wode_head=(RoundedImageView)view_wode.findViewById(R.id.wode_head);
@@ -382,21 +427,24 @@ public class MainActivity extends Activity implements ShouyeAdapter.CallBack {
         wode_message.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                getReply();
             }
         });
 
         wode_safety.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                new XPopup.Builder(MainActivity.this)
+                        .popupAnimation(PopupAnimation.ScaleAlphaFromCenter)
+                        .asCustom(new ChangePassPopup(MainActivity.this,getStateBar3(),MainActivity.this))
+                        .show();
             }
         });
 
         wode_report.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                sendAdvice();
             }
         });
 
@@ -440,20 +488,118 @@ public class MainActivity extends Activity implements ShouyeAdapter.CallBack {
             public void onClick(View view) {
                 Intent intent=new Intent(MainActivity.this,UserInfo_Home.class);
                 intent.putExtra("id",Link.user.getId());
-                startActivity(intent);
+                startActivityForResult(intent,1);
             }
         });
     }
 
+    private void sendAdvice(){
+        new XPopup.Builder(this).asInputConfirm("发送建议", "请输入内容",
+                new OnInputConfirmListener() {
+                    @Override
+                    public void onConfirm(String text) {
+                        if(text.equals("")){
+                            Toast.makeText(MainActivity.this,"举报理由不能为空！",Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        Report report=new Report();
+                        report.setTieid(3);
+                        report.setType("advice");
+                        report.setUserid(Link.user.getId());
+                        report.setReason(text);
+
+                        RequestParams params=new RequestParams();
+                        params.put("report",JsonUtil.toReportJson(report));
+
+                        RequestUtils.clientPost("addreport", params, new AsyncHttpResponseHandler() {
+                            @Override
+                            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                                Toast.makeText(MainActivity.this,"提交成功，感谢您的反馈！",Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                                handler.sendEmptyMessage(-1);
+                            }
+                        });
+                    }
+                })
+                .show();
+    }
+
+    private void getReply(){
+        RequestParams params=new RequestParams();
+        params.put("id",Link.user.getId());
+        params.put("type","reply");
+
+        RequestUtils.clientPost("selectreport", params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                List<Report> replyList=JsonUtil.getReportJson(new String(responseBody));
+                new XPopup.Builder(MainActivity.this)
+                        .popupAnimation(PopupAnimation.ScaleAlphaFromCenter)
+                        .asCustom(new CustomFullScreenPopup(MainActivity.this,getStateBar3(),replyList))
+                        .show();
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                handler.sendEmptyMessage(-1);
+            }
+        });
+    }
+
+    private int getStateBar3(){
+        int result = 0;
+        int resourceId = this.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = this.getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
+
+    private void refresh(){
+//        if(Link.user==null)
+//            return;
+//
+        RequestParams params=new RequestParams();
+        params.put("id",Link.user.getId());
+        RequestUtils.clientPost("refresh", params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                refreshStr=new String(responseBody);
+                handler.sendEmptyMessage(-2);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                handler.sendEmptyMessage(-1);
+            }
+        });
+    }
+
+    private Runnable refreshRunnable = new Runnable() {
+        @Override
+        public void run() {
+            refresh();
+            handler.postDelayed(this,3000);
+        }
+    };
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (resultCode){
-            case 0:
-                break;
-            case 1:
-                viewPager.setCurrentItem(3);
-                initwode();
-                break;
+        if(requestCode==0){
+            switch (resultCode){
+                case 0:
+                    break;
+                case 1:
+                    viewPager.setCurrentItem(3);
+                    initwode();
+                    refreshRunnable.run();
+                    break;
+            }
+        }else if(requestCode==1){
+
         }
     }
 
@@ -461,6 +607,12 @@ public class MainActivity extends Activity implements ShouyeAdapter.CallBack {
     protected void onPause() {
         overridePendingTransition(R.anim.fade_out,R.anim.fade_in);
         super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        handler.removeCallbacks(refreshRunnable);
     }
 
     @Override

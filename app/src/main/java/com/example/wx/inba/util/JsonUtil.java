@@ -84,6 +84,13 @@ public class JsonUtil {
 		return gson.fromJson(jsonStr,listType);
 	}
 
+	public static List<Report> getReportJson(String jsonStr){
+		gson=new Gson();
+		Type listType = new TypeToken<List<Report>>() {
+		}.getType();
+		return gson.fromJson(jsonStr,listType);
+	}
+
 	public static String toAnswerJson(Answer answer){
 		gson=new Gson();
 		return gson.toJson(answer);

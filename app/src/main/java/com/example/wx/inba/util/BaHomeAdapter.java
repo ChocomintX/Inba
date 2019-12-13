@@ -139,7 +139,7 @@ public class BaHomeAdapter extends BaseAdapter implements View.OnClickListener {
 
         viewHolder.ba_home_name.setText(userInfo.getName());
         Glide.with(context).load(userInfo.getHead()).into(viewHolder.ba_home_head);
-        viewHolder.ba_home_content.setText(tie.getTitle()+"                                                        ");
+        viewHolder.ba_home_content.setText(tie.getTitle()+"                                                                                                            ");
         viewHolder.ba_home_ba.setText(tie.getBaid()+"");
         viewHolder.ba_home_ba.setVisibility(View.GONE);
         viewHolder.ba_home_answernum.setText(tie.getAnswernum()+"");

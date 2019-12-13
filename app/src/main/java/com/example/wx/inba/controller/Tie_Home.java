@@ -69,6 +69,7 @@ public class Tie_Home extends AppCompatActivity implements View.OnClickListener,
     private ImageView answer_photo;
     private String answerphotopath;
     private ImageView identity;
+    private boolean istop=false;
 
 
     private Handler handler=new Handler(){
@@ -108,7 +109,12 @@ public class Tie_Home extends AppCompatActivity implements View.OnClickListener,
 
                     break;
                 case 5:
+                    if (!istop){
+                        Toast.makeText(Tie_Home.this,"置顶的帖子无法删除！",Toast.LENGTH_SHORT).show();
+                        break;
+                    }
                     Toast.makeText(Tie_Home.this,"删除成功！",Toast.LENGTH_SHORT).show();
+                    Tie_Home.this.setResult(1);
                     finish();
                     break;
             }
@@ -425,7 +431,14 @@ public class Tie_Home extends AppCompatActivity implements View.OnClickListener,
                         RequestUtils.clientPost("deletetie", params, new AsyncHttpResponseHandler() {
                             @Override
                             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                                String str=new String(responseBody);
+                                if(!str.equals("ok")){
+                                    istop=false;
+                                }else{
+                                    istop=true;
+                                }
                                 handler.sendEmptyMessage(5);
+
                             }
 
                             @Override
@@ -448,12 +461,15 @@ public class Tie_Home extends AppCompatActivity implements View.OnClickListener,
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.tie_home_return:
+                Tie_Home.this.setResult(0);
                 finish();
                 break;
             case R.id.tie_home_zhikanlouzhu:
                 zhikanlouzhu();
                 break;
             case R.id.tie_home_gengduo:
+                if(userInfo==null||ba==null)
+                    break;
                 String[] strings;
                 if(Link.userInfo.getId()==1){
                     strings=new String[]{"举报该帖子","正序排序","倒序排序","删除该帖","置顶该帖"};

@@ -44,11 +44,13 @@ import com.example.wx.inba.R;
 import com.example.wx.inba.dao.Link;
 import com.example.wx.inba.dao.RequestUtils;
 import com.example.wx.inba.model.Ba;
+import com.example.wx.inba.model.Report;
 import com.example.wx.inba.model.Tie;
 import com.example.wx.inba.model.User;
 import com.example.wx.inba.model.UserInfo;
 import com.example.wx.inba.util.BaHomeAdapter;
 import com.example.wx.inba.util.Ba_Home_Dialog;
+import com.example.wx.inba.util.CustomFullScreenPopup;
 import com.example.wx.inba.util.HeightListView;
 import com.example.wx.inba.util.JsonUtil;
 import com.example.wx.inba.util.ListViewUtil;
@@ -58,9 +60,14 @@ import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.lxj.xpopup.XPopup;
+import com.lxj.xpopup.enums.PopupAnimation;
 import com.lxj.xpopup.interfaces.OnConfirmListener;
 import com.lxj.xpopup.interfaces.OnSelectListener;
 import com.makeramen.roundedimageview.RoundedImageView;
+import com.tencent.connect.share.QQShare;
+import com.tencent.tauth.IUiListener;
+import com.tencent.tauth.Tencent;
+import com.tencent.tauth.UiError;
 
 import org.json.JSONObject;
 
@@ -72,6 +79,7 @@ import java.util.List;
 import cz.msebera.android.httpclient.Header;
 
 import static android.content.ContentValues.TAG;
+import static android.provider.UserDictionary.Words.APP_ID;
 
 public class Ba_Home extends AppCompatActivity implements View.OnClickListener,BaHomeAdapter.CallBack, ActionSheet.ActionSheetListener {
     private BaHomeAdapter baHomeAdapter;
@@ -94,12 +102,17 @@ public class Ba_Home extends AppCompatActivity implements View.OnClickListener,B
     private String isSign;
     private int flag=0;
     private String expstr;
+    private boolean isFocus;
+    private Tencent mTencent;
 
     private Handler handler=
             new Handler(){
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what){
+                case -2:
+                    ba_home_sign.setText("关注");
+                    break;
                 case -1:
                     Toast.makeText(Ba_Home.this,"连接服务器失败！",Toast.LENGTH_SHORT).show();
                     break;
@@ -110,18 +123,7 @@ public class Ba_Home extends AppCompatActivity implements View.OnClickListener,B
                     baHomeAdapter=new BaHomeAdapter(list,userInfoList,Ba_Home.this,Ba_Home.this);
                     ba_home_listview.setAdapter(baHomeAdapter);
                     ListViewUtil.setListViewBasedOnChildren(ba_home_listview);
-                    for (int i=0;i<list.size();i++){
-                        Tie tie=list.get(i);
-                        if(tie.getId()==ba.getTopid()){
-                            if(tie.getTitle().length()<16){
-                                ba_home_toptitle.setText(tie.getTitle());
-                            }else{
-                                ba_home_toptitle.setText(tie.getTitle().substring(0,15)+"......");
-                            }
-                            toptie=tie;
-                            topuserinfo=userInfoList.get(i);
-                        }
-                    }
+                    getTopTie();
                     if(flag!=0){
                         ba_home_scrollview.fullScroll(ScrollView.FOCUS_UP);
                     }
@@ -133,6 +135,12 @@ public class Ba_Home extends AppCompatActivity implements View.OnClickListener,B
                     showDialog();
                     break;
                 case 3:
+                    if(exp==-1){
+                        isFocus=false;
+                        ba_home_sign.setText("关注");
+                        break;
+                    }
+
                     double progress=0;
 
                     if(exp>=0&&exp<10){
@@ -185,6 +193,9 @@ public class Ba_Home extends AppCompatActivity implements View.OnClickListener,B
                         ba_home_sign.setText("已签到");
                     }
                     break;
+                case 5:
+                    getTopTie();
+                    break;
             }
         }
     };
@@ -194,6 +205,7 @@ public class Ba_Home extends AppCompatActivity implements View.OnClickListener,B
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ba_home);
 
+        mTencent = Tencent.createInstance("101678901", Ba_Home.this.getApplicationContext());
         initView();
 
     }
@@ -245,9 +257,28 @@ public class Ba_Home extends AppCompatActivity implements View.OnClickListener,B
                 intent.putExtra("tie",(Serializable)list.get(i));
                 intent.putExtra("userinfo",(Serializable)userInfoList.get(i));
                 intent.putExtra("ba",(Serializable)ba);
-                startActivityForResult(intent,2);
+                startActivityForResult(intent,1);
             }
         });
+    }
+
+    public void getTopTie(){
+        for (int i=0;i<list.size();i++){
+            Tie tie=list.get(i);
+            if(tie.getId()==ba.getTopid()){
+                if(tie.getTitle().length()<16){
+                    ba_home_toptitle.setText(tie.getTitle());
+                }else{
+                    ba_home_toptitle.setText(tie.getTitle().substring(0,15)+"......");
+                }
+                toptie=tie;
+                topuserinfo=userInfoList.get(i);
+                break;
+            }
+            toptie=null;
+            topuserinfo=null;
+            ba_home_toptitle.setText("本吧暂未有置顶帖子");
+        }
     }
 
     public void getSignState(){
@@ -259,7 +290,51 @@ public class Ba_Home extends AppCompatActivity implements View.OnClickListener,B
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 exp=Double.parseDouble(new String(responseBody));
+                isFocus=true;
                 handler.sendEmptyMessage(3);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                isFocus=false;
+                handler.sendEmptyMessage(-2);
+            }
+        });
+    }
+
+    public void focus(){
+        RequestParams params = new RequestParams();
+        params.put("baid", ba.getId());
+        params.put("userid",Link.userInfo.getId());
+
+        RequestUtils.clientPost("bafocus", params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                Toast.makeText(Ba_Home.this,new String(responseBody),Toast.LENGTH_SHORT).show();
+                getSignState();
+                ba_home_sign.setText("已签到");
+                isFocus=true;
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                handler.sendEmptyMessage(-1);
+            }
+        });
+    }
+
+    public void canelFocus(){
+        RequestParams params = new RequestParams();
+        params.put("baid", ba.getId());
+        params.put("userid",Link.userInfo.getId());
+
+        RequestUtils.clientPost("bacancelfocus", params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                Toast.makeText(Ba_Home.this,new String(responseBody),Toast.LENGTH_SHORT).show();
+                isFocus=false;
+                ba_home_sign.setText("关注");
+                getSignState();
             }
 
             @Override
@@ -344,13 +419,18 @@ public class Ba_Home extends AppCompatActivity implements View.OnClickListener,B
                     dialog.dismiss();
                     Combo(-1);
                     Toast.makeText(this,"发表成功！赶快叫朋友来围观吧！",Toast.LENGTH_SHORT).show();
+                    getTie();
                     break;
                 }
-
+            case 1:
+                updateBa();
+                if(resultCode==1)
+                    getTie();
+                break;
         }
 
-        getTie();
-        updateBa();
+        mTencent.onActivityResult(requestCode, resultCode, intent);
+
     }
 
     public void updateBa(){
@@ -362,7 +442,7 @@ public class Ba_Home extends AppCompatActivity implements View.OnClickListener,B
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 ba=JsonUtil.getBaJson1(new String(responseBody));
-                handler.sendEmptyMessage(1);
+                handler.sendEmptyMessage(5);
             }
 
             @Override
@@ -486,6 +566,37 @@ public class Ba_Home extends AppCompatActivity implements View.OnClickListener,B
         window.setWindowAnimations(R.style.MyDialog);  //添加动画
     }
 
+    private int getStateBar3(){
+        int result = 0;
+        int resourceId = this.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = this.getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
+
+    private void getReply(){
+        RequestParams params=new RequestParams();
+        params.put("id",Link.user.getId());
+        params.put("type","reply");
+
+        RequestUtils.clientPost("selectreport", params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                List<Report> replyList=JsonUtil.getReportJson(new String(responseBody));
+                new XPopup.Builder(Ba_Home.this)
+                        .popupAnimation(PopupAnimation.ScaleAlphaFromCenter)
+                        .asCustom(new CustomFullScreenPopup(Ba_Home.this,getStateBar3(),replyList))
+                        .show();
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                handler.sendEmptyMessage(-1);
+            }
+        });
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()){
@@ -493,19 +604,38 @@ public class Ba_Home extends AppCompatActivity implements View.OnClickListener,B
                 finish();
                 break;
             case R.id.ba_home_tixing:
-                Toast.makeText(this,"还没有新消息哦",Toast.LENGTH_SHORT).show();
+                getReply();
+//                Toast.makeText(this,"还没有新消息哦",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.ba_home_gengduo:
                 new XPopup.Builder(this)
-                        .asBottomList("请选择操作", new String[]{"关注本吧", "分享本吧",},
+                        .asBottomList("请选择操作", new String[]{"取消关注", "分享本吧",},
                                 new OnSelectListener() {
                                     @Override
                                     public void onSelect(int position, String text) {
+                                        switch (text){
+                                            case "取消关注":
+                                                canelFocus();
+                                                break;
+                                            case "分享本吧":
+//                                                Toast.makeText(Ba_Home.this,Link.userInfo.getHead().substring(0,3),Toast.LENGTH_SHORT).show();
+//                                                mTencent.login(this, Scope, listener);
+                                                final Bundle params = new Bundle();
+                                                params.putInt(QQShare.SHARE_TO_QQ_KEY_TYPE, QQShare.SHARE_TO_QQ_TYPE_DEFAULT);
+                                                params.putString(QQShare.SHARE_TO_QQ_TITLE, "我发现了一个有趣的东西~");
+                                                params.putString(QQShare.SHARE_TO_QQ_SUMMARY,  "来\""+ba.getName()+"\'吧看看吧！");
+                                                params.putString(QQShare.SHARE_TO_QQ_TARGET_URL,  "http://baidu.com");
+                                                params.putString(QQShare.SHARE_TO_QQ_APP_NAME,  "Inba");
+                                                mTencent.shareToQQ(Ba_Home.this, params, new BaseUiListener());
+                                                break;
+                                        }
                                     }
                                 })
                         .show();
                 break;
             case R.id.ba_home_toptitle:
+                if(toptie==null)
+                    break;
                 Intent intent=new Intent(Ba_Home.this,Tie_Home.class);
                 intent.putExtra("tie",(Serializable)toptie);
 //                intent.putExtra("userinfo",(Serializable)topuserinfo);
@@ -526,7 +656,10 @@ public class Ba_Home extends AppCompatActivity implements View.OnClickListener,B
                 }
                 break;
             case R.id.ba_home_sign:
-                sign();
+                if(isFocus)
+                    sign();
+                else
+                    focus();
                 break;
         }
     }
@@ -548,7 +681,6 @@ public class Ba_Home extends AppCompatActivity implements View.OnClickListener,B
         }
     }
 
-
     @Override
     public void onDismiss(ActionSheet actionSheet, boolean isCancel) {
 
@@ -557,5 +689,31 @@ public class Ba_Home extends AppCompatActivity implements View.OnClickListener,B
     @Override
     public void onOtherButtonClick(ActionSheet actionSheet, int index) {
 
+    }
+
+    private class BaseUiListener implements IUiListener {
+//        @Override
+//        public void onComplete(JSONObject response) {
+//            mBaseMessageText.setText("onComplete:");
+//            mMessageText.setText(response.toString());
+//            doComplete(response);
+//        }
+//        protected void doComplete(JSONObject values) {
+//        }
+
+        @Override
+        public void onComplete(Object o) {
+            Toast.makeText(Ba_Home.this,"分享",Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onError(UiError e) {
+//            showResult("onError:", "code:" + e.errorCode + ", msg:"
+//                    + e.errorMessage + ", detail:" + e.errorDetail);
+        }
+        @Override
+        public void onCancel() {
+//            showResult("onCancel", "");
+        }
     }
 }

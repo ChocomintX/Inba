@@ -1,5 +1,7 @@
 package com.example.wx.inba.model;
 
+import com.example.wx.inba.dao.Link;
+
 import java.io.Serializable;
 
 public class Ba implements Serializable {
@@ -49,7 +51,9 @@ public class Ba implements Serializable {
     }
 
     public String getImgpath() {
-        return imgpath;
+        if(imgpath.substring(0,4).equals("http"))
+            return imgpath;
+        return Link.url+imgpath;
     }
 
     public void setImgpath(String imgpath) {

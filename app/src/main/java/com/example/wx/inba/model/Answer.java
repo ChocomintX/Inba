@@ -1,5 +1,7 @@
 package com.example.wx.inba.model;
 
+import com.example.wx.inba.dao.Link;
+
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -69,7 +71,9 @@ public class Answer implements Serializable, Comparable<Answer> {
     }
 
     public String getImgpath() {
-        return imgpath;
+        if(imgpath==null||imgpath.equals("")||imgpath.substring(0,4).equals("http"))
+            return imgpath;
+        return Link.url+imgpath;
     }
 
     public void setImgpath(String imgpath) {

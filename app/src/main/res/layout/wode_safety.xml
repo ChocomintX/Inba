@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/wode_safety_bg"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color1"
+    >
+
+    <RelativeLayout
+        android:id="@+id/wode_safety_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/fans_home_return"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/ba_home_return"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp"
+            />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/wode_safety_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:text="修改密码"
+        android:textColor="@color/color2"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="100dp"
+        />
+
+    <EditText
+        android:layout_below="@+id/wode_safety_title"
+        android:id="@+id/wode_safety_oldpass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:hint="请输入原始密码"
+        android:background="@drawable/logininfo_edit__shape"
+        android:padding="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textColorHint="@color/color3"
+        android:layout_marginTop="50dp"
+        android:textColor="@color/color2"
+        android:inputType="textPassword"
+        />
+
+    <EditText
+        android:layout_below="@+id/wode_safety_oldpass"
+        android:id="@+id/wode_safety_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:hint="请输入新密码"
+        android:background="@drawable/logininfo_edit__shape"
+        android:padding="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textColorHint="@color/color3"
+        android:layout_marginTop="10dp"
+        android:inputType="textPassword"
+        android:textColor="@color/color2"
+        />
+
+    <EditText
+        android:layout_below="@+id/wode_safety_password"
+        android:id="@+id/wode_safety_repass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:hint="再次输入新密码"
+        android:background="@drawable/logininfo_edit__shape"
+        android:padding="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textColorHint="@color/color3"
+        android:layout_marginTop="10dp"
+        android:inputType="textPassword"
+        android:textColor="@color/color2"
+        />
+
+    <Button
+        android:id="@+id/wode_safety_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/loginbtn_shape"
+        android:textColor="#ffffff"
+        android:text="确认修改"
+        android:layout_below="@+id/wode_safety_repass"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        />
+</RelativeLayout>
